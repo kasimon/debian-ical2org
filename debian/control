@@ -1,0 +1,18 @@
+Source: ical2org
+Section: web
+Priority: extra
+Maintainer: Karsten Heymann <karsten.heymann@gmx.de>
+Build-Depends: debhelper (>= 7), python-setuptools
+Standards-Version: 3.8.1
+Homepage: http://pypi.python.org/pypi/ical2org
+
+Package: ical2org
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, python-tz, python-vobject
+Description: Convert iCal files to emacs org-mode data
+ ical2org is a command line tool for exporting data from the Mac OS X
+ application iCal so it can be used with the emacs tool org-mode.
+ Data transfer is one-way only (from iCal to emacs), and is intended to
+ be used to show alarms and scheduled events managed by iCal within
+ org's agenda view.
+

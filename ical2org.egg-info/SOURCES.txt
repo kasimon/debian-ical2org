@@ -1,4 +1,5 @@
 README
+setup.cfg
 setup.py
 ical2org/__init__.py
 ical2org/app.py
