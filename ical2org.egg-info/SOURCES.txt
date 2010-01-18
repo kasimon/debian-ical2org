@@ -1,0 +1,16 @@
+README
+setup.py
+ical2org/__init__.py
+ical2org/app.py
+ical2org/calendars.py
+ical2org/diary.py
+ical2org/filter.py
+ical2org/format.py
+ical2org/org.py
+ical2org/tz.py
+ical2org.egg-info/PKG-INFO
+ical2org.egg-info/SOURCES.txt
+ical2org.egg-info/dependency_links.txt
+ical2org.egg-info/entry_points.txt
+ical2org.egg-info/requires.txt
+ical2org.egg-info/top_level.txt

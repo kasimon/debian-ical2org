@@ -1,0 +1,3 @@
+distribute
+pytz>=2009r
+vobject>=0.8.1c

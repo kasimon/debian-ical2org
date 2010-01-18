@@ -1,0 +1,143 @@
+==========
+ ical2org
+==========
+
+ical2org is a command line tool for exporting data from the Mac OS X
+application iCal so it can be used with the emacs tool `org-mode`_.
+Data transfer is one-way only (from iCal to emacs), and is intended to
+be used to show alarms and scheduled events managed by iCal within
+org's agenda view.
+
+Installation
+============
+
+Use normal Python application steps to install ical2org::
+
+    $ pip install ical2org
+
+or::
+
+    $ easy_install ical2org
+
+The source distribution is created using `Distribute`_, which will be
+installed with ical2org.  The other dependencies (`pytz`_ and
+`vobject`_) will also be installed automatically.
+
+Generating org-mode Files
+=========================
+
+While ical2org supports multiple output formats, the default is an
+org-mode outline.  Each calendar entry includes the summary, location,
+date and time, and complete description (useful for searching).
+
+For example, to extract the entries from a calendar called "Meetup:
+Python", you would run::
+
+    $ ical2org "Meetup: Python"
+    Starting 14 days ago at 2010-01-03 00:00:00-05:00
+    Ending 30 days from now at 2010-02-17 00:00:00-05:00
+    Processing: Meetup: Python
+      Python Atlanta February Meetup
+    # -*- coding: utf-8 -*-
+    * Meetup: Python	:clubs:
+      :CATEGORY: Personal
+    ** Python Atlanta February Meetup
+       <2010-02-11 Thu 19:30-21:30>
+       - PyAtl: Atlanta Python Programmers
+         
+         After an optional 6pm dinner at Figo Pasta at the corner of
+         Howell Mill Road and Huff Road, we will meet as usual in the
+         spacious and comfortable auditorium of the GTRI Food
+         Processing Building at 7:30pm for our monthly meeting.
+         
+         Topics for this meeting:
+         
+         Brandon Rhodes will give his PyCon talk: "Learning Hosting
+         Best-Practices From WebFaction"
+         
+         Atlanta, GA  30318 - USA
+         
+         Thursday, February 11 at 7:30 PM
+         
+         Photo: http://photos2.meetupstatic.com/photos/event/4/7/3/5/event_5238229.jpeg
+         
+         Attending: 3
+         
+         Details: http://www.meetup.com/python-atlanta/calendar/12325308/
+
+Output is encoded as UTF-8, which may not work with Unix pipes and
+shell redirection.  To save the output to a file instead of having it
+printed to standard output, use the ``-o`` option.
+
+By default, ical2org processes all of the calendars which are
+displayed in iCal.  Hidden calendars are ignored unless you give their
+name on the command line.
+
+Generating Diary Files
+======================
+
+The default output format uses org's outline structure.  If you would
+rather use emacs' diary-mode, use ``-f diary`` to switch modes.  The
+diary entries do not include the full text of the event.
+
+Recommended Use
+===============
+
+The recommended way to use ical2org is to export your iCal data at
+least every day.  That gives you a moving window of fresh data, since
+the date range for export is limited.  Save the output to a file
+(e.g., ``~/Documents/Notes/calendar.org``) and add the file to org's
+list of inputs for building agenda views.
+
+If you use org-mode for taking notes in meetings, refile each event as
+you make notes to avoid overwriting it the next time your calendars
+are exported.
+
+For example, you might run a command like::
+
+    $ ical2org -o ~/Documents/Notes/calendar.org -b 30 -e 30
+
+to export the data starting 30 days ago and ending 30 days from today
+to the file ``calendar.org``.
+
+Recurring Events
+================
+
+Recurring events in iCal are "exploded" to create separate entries in
+the output.  This makes it easy to refile an event when you add notes,
+without having the notes from one meeting occurance appear on the
+wrong date.
+
+Command Line Options
+====================
+
+-h                    show this help message and exit
+-c CONFIG_FILENAME, --config=CONFIG_FILENAME
+                      Configuration file name. Defaults to ~/.ical2org
+-b DAYS_AGO, --begin=DAYS_AGO, --days-ago=DAYS_AGO
+                      Number of days back in time to search. Defaults to 14.
+-e DAYS_AHEAD, --end=DAYS_AHEAD, --days-ahead=DAYS_AHEAD
+                      Number of days forward in time to search. Defaults to
+                      30.
+-v, --verbose         Increase verbose level
+-q, --quiet           Turn off verbose output
+-o OUTPUT_FILE_NAME, --output-file=OUTPUT_FILE_NAME
+                      Write the output to the named file instead of stdout
+--all                 Include all calendars, not just active.
+--input-directory=INPUT_DIRECTORY
+                      Directory containing calendars. Defaults to
+                      ~/Library/Calendars.
+-f FORMAT, --format=FORMAT
+                      Output format. One of ['org', 'diary']. Defaults to
+                      "diary".
+--opt=OPT, --formatter-option=OPT
+                      Formatter-specific option name=value
+--help                Verbose help
+
+.. _org-mode: http://orgmode.org/
+
+.. _Distribute: http://packages.python.org/distribute/
+
+.. _pytz: http://pytz.sourceforge.net/
+
+.. _vobject: http://vobject.skyhouseconsulting.com/
